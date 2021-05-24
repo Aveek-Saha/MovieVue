@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "MovieVue",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}

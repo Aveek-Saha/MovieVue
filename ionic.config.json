@@ -1,0 +1,7 @@
+{
+  "name": "MovieVue",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
