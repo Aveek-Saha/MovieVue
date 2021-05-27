@@ -56,38 +56,26 @@ export default defineComponent({
     const selectedIndex = ref(0);
     const appPages = [
       {
-        title: 'Inbox',
-        url: '/folder/Inbox',
-        iosIcon: mailOutline,
-        mdIcon: mailSharp
-      },
-      {
-        title: 'Outbox',
-        url: '/folder/Outbox',
+        title: 'Now Playing',
+        url: '/folder/Now Playing',
         iosIcon: paperPlaneOutline,
         mdIcon: paperPlaneSharp
       },
       {
-        title: 'Favorites',
-        url: '/folder/Favorites',
+        title: 'Popular',
+        url: '/folder/Popular',
         iosIcon: heartOutline,
         mdIcon: heartSharp
       },
       {
-        title: 'Archived',
-        url: '/folder/Archived',
-        iosIcon: archiveOutline,
-        mdIcon: archiveSharp
-      },
-      {
-        title: 'Trash',
-        url: '/folder/Trash',
+        title: 'Top Rated',
+        url: '/folder/Top Rated',
         iosIcon: trashOutline,
         mdIcon: trashSharp
       },
       {
-        title: 'Spam',
-        url: '/folder/Spam',
+        title: 'Upcoming',
+        url: '/folder/Upcoming',
         iosIcon: warningOutline,
         mdIcon: warningSharp
       }
