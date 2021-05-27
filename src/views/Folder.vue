@@ -17,8 +17,9 @@
       </ion-header>
     
       <div id="container">
-        <strong class="capitalize">{{ $route.params.id }}</strong>
-        <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+        <!-- <strong class="capitalize">{{ $route.params.id }}</strong>
+        <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p> -->
+        <MovieCard></MovieCard>
       </div>
     </ion-content>
   </ion-page>
@@ -26,6 +27,7 @@
 
 <script lang="ts">
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import MovieCard  from "./MovieCard.vue";
 
 export default {
   name: 'Folder',
@@ -36,13 +38,14 @@ export default {
     IonMenuButton,
     IonPage,
     IonTitle,
-    IonToolbar
+    IonToolbar,
+    MovieCard
   }
 }
 </script>
 
 <style scoped>
-#container {
+/* #container {
   text-align: center;
   position: absolute;
   left: 0;
@@ -65,5 +68,5 @@ export default {
 
 #container a {
   text-decoration: none;
-}
+} */
 </style>
