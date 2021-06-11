@@ -1,37 +1,32 @@
 <template>
-  <ion-page>
-    <ion-header :translucent="true">
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-menu-button color="primary"></ion-menu-button>
-        </ion-buttons>
-        <ion-title>{{ $route.params.id }}</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    
-    <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">{{ $route.params.id }}</ion-title>
-        </ion-toolbar>
-      </ion-header>
-    
-      <div id="container">
-        <!-- <strong class="capitalize">{{ $route.params.id }}</strong>
-        <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p> -->
-        <MovieCard></MovieCard>
-      </div>
-    </ion-content>
-  </ion-page>
+    <ion-page>
+        <ion-header :translucent="true">
+            <ion-toolbar>
+                <ion-buttons slot="start">
+                    <ion-menu-button color="primary"></ion-menu-button>
+                </ion-buttons>
+                <ion-title>{{ $route.params.id }}</ion-title>
+            </ion-toolbar>
+        </ion-header>
+
+        <ion-content :fullscreen="true">
+            <ion-header collapse="condense">
+                <ion-toolbar>
+                    <ion-title size="large">{{ $route.params.id }}</ion-title>
+                </ion-toolbar>
+            </ion-header>
+
+            <div id="container">
+                <div v-for="movie in movies" :key="movie.id">
+                    <MovieCard></MovieCard>
+                </div>
+            </div>
+        </ion-content>
+    </ion-page>
 </template>
 
-<script lang="ts">
-import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
-import MovieCard  from "./MovieCard.vue";
-
-export default {
-  name: 'Folder',
-  components: {
+<script>
+import {
     IonButtons,
     IonContent,
     IonHeader,
@@ -39,9 +34,39 @@ export default {
     IonPage,
     IonTitle,
     IonToolbar,
-    MovieCard
-  }
-}
+} from "@ionic/vue";
+import MovieCard from "./MovieCard.vue";
+import axios from "axios";
+
+export default {
+    name: "Folder",
+    components: {
+        IonButtons,
+        IonContent,
+        IonHeader,
+        IonMenuButton,
+        IonPage,
+        IonTitle,
+        IonToolbar,
+        MovieCard,
+    },
+    data() {
+        return {
+            movies: [],
+        };
+    },
+    methods: {
+        async fetch() {
+            const movies = await axios.get(
+                "https://api.themoviedb.org/3/movie/now_playing?api_key=3580bf75aaa90303fa62f491cfec60b9&language=en-US&page=1"
+            );
+            this.movies = movies.data.results;
+        },
+    },
+    mounted() {
+        this.fetch();
+    },
+};
 </script>
 
 <style scoped>
