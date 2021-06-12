@@ -1,17 +1,13 @@
 <template>
     <ion-card>
-        <img
-            src="https://raw.githubusercontent.com/ionic-team/ionic-docs/master/src/demos/api/card/madison.jpg"
-        />
+        <img :src=url />
         <ion-card-header>
             <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-            <ion-card-title>{{ movie.original_title }}</ion-card-title>
+            <ion-card-title>{{ movie.title }}</ion-card-title>
         </ion-card-header>
 
         <ion-card-content>
-            Keep close to Nature's heart... and break clear away, once in
-            awhile, and climb a mountain or spend a week in the woods. Wash your
-            spirit clean.
+            {{ movie.overview }}
         </ion-card-content>
     </ion-card>
 </template>
@@ -42,6 +38,11 @@ export default defineComponent({
     props: ["movie"],
     setup() {
         return { warning };
+    },
+    data() {
+        return {
+            url: "https://image.tmdb.org/t/p/original/" + this.movie.backdrop_path
+        }
     },
 });
 </script>

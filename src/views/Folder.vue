@@ -10,6 +10,9 @@
         </ion-header>
 
         <ion-content :fullscreen="true">
+            <ion-refresher slot="fixed" @ionRefresh="doRefresh($event)">
+                <ion-refresher-content></ion-refresher-content>
+            </ion-refresher>
             <ion-header collapse="condense">
                 <ion-toolbar>
                     <ion-title size="large">{{ $route.params.id }}</ion-title>
@@ -34,6 +37,8 @@ import {
     IonPage,
     IonTitle,
     IonToolbar,
+    IonRefresher,
+    IonRefresherContent,
 } from "@ionic/vue";
 import MovieCard from "./MovieCard.vue";
 import axios from "axios";
@@ -49,6 +54,8 @@ export default {
         IonTitle,
         IonToolbar,
         MovieCard,
+        IonRefresher,
+        IonRefresherContent,
     },
     data() {
         return {
@@ -61,6 +68,14 @@ export default {
                 "https://api.themoviedb.org/3/movie/now_playing?api_key=3580bf75aaa90303fa62f491cfec60b9&language=en-US&page=1"
             );
             this.movies = movies.data.results;
+        },
+        async doRefresh(event) {
+            console.log("Begin async operation");
+
+            const res = await this.fetch();
+            console.log("Async operation has ended");
+            console.log(res);
+            event.target.complete();
         },
     },
     mounted() {
