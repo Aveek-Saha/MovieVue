@@ -1,9 +1,11 @@
 <template>
     <ion-card>
-        <img src="https://raw.githubusercontent.com/ionic-team/ionic-docs/master/src/demos/api/card/madison.jpg" />
+        <img
+            src="https://raw.githubusercontent.com/ionic-team/ionic-docs/master/src/demos/api/card/madison.jpg"
+        />
         <ion-card-header>
             <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-            <ion-card-title>Card Title</ion-card-title>
+            <ion-card-title>{{ movie.original_title }}</ion-card-title>
         </ion-card-header>
 
         <ion-card-content>
@@ -37,6 +39,7 @@ export default defineComponent({
         // IonItem,
         // IonLabel,
     },
+    props: ["movie"],
     setup() {
         return { warning };
     },

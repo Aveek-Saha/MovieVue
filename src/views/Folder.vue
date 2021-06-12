@@ -18,7 +18,7 @@
 
             <div id="container">
                 <div v-for="movie in movies" :key="movie.id">
-                    <MovieCard></MovieCard>
+                    <MovieCard v-bind:movie="movie"></MovieCard>
                 </div>
             </div>
         </ion-content>
