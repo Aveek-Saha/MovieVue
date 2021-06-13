@@ -24,6 +24,18 @@
                     <MovieCard v-bind:movie="movie"></MovieCard>
                 </div>
             </div>
+            <ion-infinite-scroll
+                @ionInfinite="loadData($event)"
+                threshold="100px"
+                id="infinite-scroll"
+                :disabled="isDisabled"
+            >
+                <ion-infinite-scroll-content
+                    loading-spinner="bubbles"
+                    loading-text="Loading more data..."
+                >
+                </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
         </ion-content>
     </ion-page>
 </template>
@@ -39,7 +51,10 @@ import {
     IonToolbar,
     IonRefresher,
     IonRefresherContent,
+    IonInfiniteScroll,
+    IonInfiniteScrollContent,
 } from "@ionic/vue";
+import { ref } from "vue";
 import MovieCard from "./MovieCard.vue";
 import axios from "axios";
 
@@ -56,57 +71,55 @@ export default {
         MovieCard,
         IonRefresher,
         IonRefresherContent,
+        IonInfiniteScroll,
+        IonInfiniteScrollContent,
     },
     data() {
         return {
-            movies: [],
+            movies: ref([]),
+            isDisabled: ref(false),
+            pageNumber: 1,
         };
     },
     methods: {
-        async fetch() {
+        async fetch(pageNumber) {
             const movies = await axios.get(
-                "https://api.themoviedb.org/3/movie/now_playing?api_key=3580bf75aaa90303fa62f491cfec60b9&language=en-US&page=1"
+                "https://api.themoviedb.org/3/movie/now_playing?api_key=3580bf75aaa90303fa62f491cfec60b9&language=en-US&page=" +
+                    pageNumber
             );
             this.movies = movies.data.results;
         },
         async doRefresh(event) {
             console.log("Begin async operation");
 
-            const res = await this.fetch();
+            const res = await this.fetch(1);
             console.log("Async operation has ended");
             console.log(res);
             event.target.complete();
         },
+        async pushData(pageNumber) {
+            const movies = await axios.get(
+                "https://api.themoviedb.org/3/movie/now_playing?api_key=3580bf75aaa90303fa62f491cfec60b9&language=en-US&page=" +
+                    pageNumber
+            );
+            this.movies = this.movies.concat(movies.data.results);
+        },
+        async loadData(ev) {
+            const res = await this.pushData(this.pageNumber);
+            this.pageNumber += 1;
+            console.log("Loaded data");
+            console.log(res);
+            ev.target.complete();
+            // if (items.value.length == 1000) {
+            //     ev.target.disabled = true;
+            // }
+        },
     },
     mounted() {
-        this.fetch();
+        this.fetch(this.pageNumber);
+        this.pageNumber += 1;
     },
 };
 </script>
 
-<style scoped>
-/* #container {
-  text-align: center;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-  color: #8c8c8c;
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
-} */
-</style>
+<style scoped></style>
