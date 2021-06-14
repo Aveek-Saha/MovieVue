@@ -9,7 +9,7 @@
             </ion-toolbar>
         </ion-header>
 
-        <ion-content :fullscreen="true">
+        <ion-content :fullscreen="true" scrollEvents ref="content">
             <ion-refresher slot="fixed" @ionRefresh="doRefresh($event)">
                 <ion-refresher-content></ion-refresher-content>
             </ion-refresher>
@@ -80,12 +80,19 @@ export default {
             isDisabled: ref(false),
             pageNumber: 1,
             maxPages: 1,
+            endpoint: this.$route.params.id
+                .toLowerCase()
+                .split(" ")
+                .join("_"),
         };
     },
     methods: {
         async fetch(pageNumber) {
+            console.log(this.endpoint);
             const movies = await axios.get(
-                "https://api.themoviedb.org/3/movie/now_playing?api_key=3580bf75aaa90303fa62f491cfec60b9&language=en-US&page=" +
+                "https://api.themoviedb.org/3/movie/" +
+                    this.endpoint +
+                    "?api_key=3580bf75aaa90303fa62f491cfec60b9&language=en-US&page=" +
                     pageNumber
             );
             this.movies = movies.data.results;
@@ -102,7 +109,9 @@ export default {
         },
         async pushData(pageNumber) {
             const movies = await axios.get(
-                "https://api.themoviedb.org/3/movie/now_playing?api_key=3580bf75aaa90303fa62f491cfec60b9&language=en-US&page=" +
+                "https://api.themoviedb.org/3/movie/" +
+                    this.endpoint +
+                    "?api_key=3580bf75aaa90303fa62f491cfec60b9&language=en-US&page=" +
                     pageNumber
             );
             this.movies = this.movies.concat(movies.data.results);
@@ -122,6 +131,29 @@ export default {
     },
     mounted() {
         this.fetch(this.pageNumber);
+    },
+    watch: {
+        $route(to, from) {
+            console.log("Route changed");
+            this.endpoint = this.$route.params.id
+                .toLowerCase()
+                .split(" ")
+                .join("_");
+            this.pageNumber = 1;
+            this.maxPages = 1;
+
+            this.fetch(this.pageNumber);
+            console.log(this.content);
+            this.scrollToTop()
+        },
+    },
+    setup() {
+        const content = ref();
+
+        return {
+            content,
+            scrollToTop: () => content.value.$el.scrollToTop(),
+        };
     },
 };
 </script>
