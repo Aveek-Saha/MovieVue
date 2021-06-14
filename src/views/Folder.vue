@@ -79,6 +79,7 @@ export default {
             movies: ref([]),
             isDisabled: ref(false),
             pageNumber: 1,
+            maxPages: 1,
         };
     },
     methods: {
@@ -88,6 +89,8 @@ export default {
                     pageNumber
             );
             this.movies = movies.data.results;
+            this.pageNumber = movies.data.page + 1;
+            this.maxPages = movies.data.total_pages;
         },
         async doRefresh(event) {
             console.log("Begin async operation");
@@ -103,21 +106,22 @@ export default {
                     pageNumber
             );
             this.movies = this.movies.concat(movies.data.results);
+            this.pageNumber = movies.data.page + 1;
+            this.maxPages = movies.data.total_pages;
         },
         async loadData(ev) {
             const res = await this.pushData(this.pageNumber);
-            this.pageNumber += 1;
             console.log("Loaded data");
             console.log(res);
+            console.log(this.pageNumber);
             ev.target.complete();
-            // if (items.value.length == 1000) {
-            //     ev.target.disabled = true;
-            // }
+            if (this.pageNumber >= this.maxPages) {
+                ev.target.disabled = true;
+            }
         },
     },
     mounted() {
         this.fetch(this.pageNumber);
-        this.pageNumber += 1;
     },
 };
 </script>
