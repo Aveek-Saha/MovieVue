@@ -32,7 +32,7 @@
             >
                 <ion-infinite-scroll-content
                     loading-spinner="bubbles"
-                    loading-text="Loading more data..."
+                    loading-text="Loading more movies..."
                 >
                 </ion-infinite-scroll-content>
             </ion-infinite-scroll>
