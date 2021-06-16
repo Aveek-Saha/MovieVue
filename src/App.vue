@@ -72,20 +72,16 @@ import {
 import { defineComponent, ref } from "vue";
 import { useRoute } from "vue-router";
 import {
-    archiveOutline,
-    archiveSharp,
-    bookmarkOutline,
-    bookmarkSharp,
     heartOutline,
     heartSharp,
-    mailOutline,
-    mailSharp,
+    flashOutline,
+    flashSharp,
     paperPlaneOutline,
     paperPlaneSharp,
-    trashOutline,
-    trashSharp,
-    warningOutline,
-    warningSharp,
+    diamondOutline,
+    diamondSharp,
+    rocketOutline,
+    rocketSharp,
 } from "ionicons/icons";
 
 export default defineComponent({
@@ -110,8 +106,8 @@ export default defineComponent({
             {
                 title: "Now Playing",
                 url: "/folder/Now Playing",
-                iosIcon: paperPlaneOutline,
-                mdIcon: paperPlaneSharp,
+                iosIcon: flashOutline,
+                mdIcon: flashSharp,
             },
             {
                 title: "Popular",
@@ -122,23 +118,15 @@ export default defineComponent({
             {
                 title: "Top Rated",
                 url: "/folder/Top Rated",
-                iosIcon: trashOutline,
-                mdIcon: trashSharp,
+                iosIcon: diamondOutline,
+                mdIcon: diamondSharp,
             },
             {
                 title: "Upcoming",
                 url: "/folder/Upcoming",
-                iosIcon: warningOutline,
-                mdIcon: warningSharp,
+                iosIcon: rocketOutline,
+                mdIcon: rocketSharp,
             },
-        ];
-        const labels = [
-            "Family",
-            "Friends",
-            "Notes",
-            "Work",
-            "Travel",
-            "Reminders",
         ];
 
         const path = window.location.pathname.split("folder/")[1];
@@ -153,21 +141,16 @@ export default defineComponent({
         return {
             selectedIndex,
             appPages,
-            labels,
-            archiveOutline,
-            archiveSharp,
-            bookmarkOutline,
-            bookmarkSharp,
             heartOutline,
             heartSharp,
-            mailOutline,
-            mailSharp,
+            flashOutline,
+            flashSharp,
             paperPlaneOutline,
             paperPlaneSharp,
-            trashOutline,
-            trashSharp,
-            warningOutline,
-            warningSharp,
+            diamondOutline,
+            diamondSharp,
+            rocketOutline,
+            rocketSharp,
             isSelected: (url: string) => (url === route.path ? "selected" : ""),
         };
     },
