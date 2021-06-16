@@ -84,7 +84,7 @@ export default {
                 .toLowerCase()
                 .split(" ")
                 .join("_"),
-            country: "US",
+            country: "",
         };
     },
     methods: {

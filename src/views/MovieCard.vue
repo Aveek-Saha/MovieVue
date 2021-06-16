@@ -45,8 +45,10 @@ export default defineComponent({
     data() {
         return {
             url:
-                "https://image.tmdb.org/t/p/original/" +
-                this.movie.backdrop_path,
+                this.movie.backdrop_path != null
+                    ? "https://image.tmdb.org/t/p/original/" +
+                      this.movie.backdrop_path
+                    : "./assets/placeholder.jpg",
         };
     },
 });
