@@ -84,20 +84,33 @@ export default {
                 .toLowerCase()
                 .split(" ")
                 .join("_"),
+            country: "US",
         };
     },
     methods: {
         async fetch(pageNumber) {
-            console.log(this.endpoint);
             const movies = await axios.get(
                 "https://api.themoviedb.org/3/movie/" +
                     this.endpoint +
                     "?api_key=3580bf75aaa90303fa62f491cfec60b9&language=en-US&page=" +
-                    pageNumber
+                    pageNumber +
+                    "&region=" +
+                    this.country
             );
             this.movies = movies.data.results;
             this.pageNumber = movies.data.page + 1;
             this.maxPages = movies.data.total_pages;
+        },
+        getCountry() {
+            axios
+                .get("http://ip-api.com/json/?fields=countryCode")
+                .then((res) => {
+                    this.country = res.data.countryCode;
+                    this.fetch(this.pageNumber);
+                })
+                .catch((err) => {
+                    this.fetch(this.pageNumber);
+                });
         },
         async doRefresh(event) {
             console.log("Begin async operation");
@@ -112,7 +125,9 @@ export default {
                 "https://api.themoviedb.org/3/movie/" +
                     this.endpoint +
                     "?api_key=3580bf75aaa90303fa62f491cfec60b9&language=en-US&page=" +
-                    pageNumber
+                    pageNumber +
+                    "&region=" +
+                    this.country
             );
             this.movies = this.movies.concat(movies.data.results);
             this.pageNumber = movies.data.page + 1;
@@ -130,7 +145,8 @@ export default {
         },
     },
     mounted() {
-        this.fetch(this.pageNumber);
+        // this.fetch(this.pageNumber);
+        this.getCountry();
     },
     watch: {
         $route(to, from) {
@@ -144,7 +160,7 @@ export default {
 
             this.fetch(this.pageNumber);
             console.log(this.content);
-            this.scrollToTop()
+            this.scrollToTop();
         },
     },
     setup() {
