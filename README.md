@@ -18,12 +18,12 @@ Download the APK and install it on your Android device
 1. Swipe down on any page to refresh it.
 1. Show region specific movies.
 
-## [Download](https://github.com/Aveek-Saha/MovieVue/releases)
+### [Download](https://github.com/Aveek-Saha/MovieVue/releases)
 
 # Develop
 Open a live development preview on [`localhost:8100`](http://localhost:8100/)
 
-```
+```sh
 npm install -g @ionic/cli
 cd MovieVue
 npm i
@@ -34,12 +34,12 @@ ionic serve
 
 Create an Android build
 
-```
+```sh
 ionic build
 ionic cap add android
 ```
 
 Open the project in Android Studio
-```
+```sh
 ionic cap open android
 ```
