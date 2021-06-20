@@ -2,6 +2,13 @@
  <br>
     Movie Vue <img width = "32px" src = "https://raw.githubusercontent.com/Aveek-Saha/MovieVue/master/public/assets/icon/favicon.png">
 </h1>
+<h3 align="center">
+<img src ="https://img.shields.io/github/downloads/Aveek-Saha/MovieVue/total.svg?style=for-the-badge">
+<img src ="https://img.shields.io/github/stars/Aveek-Saha/MovieVue.svg?style=for-the-badge">
+<img src ="https://img.shields.io/github/forks/Aveek-Saha/MovieVue.svg?style=for-the-badge">
+<img src ="https://img.shields.io/github/v/release/aveek-saha/movievue?style=for-the-badge">
+</h3>
+
 <h3 align="center"> Check out new new and popular movies on your phone. Built with Ionic and Vue. <h3>
 
 
